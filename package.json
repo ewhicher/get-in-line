@@ -1,0 +1,13 @@
+{
+  "name": "get-in-line",
+  "version": "0.0.1",
+  "description": "A grid to keep your components inline!",
+  "main": "index.js",
+  "repository": "https://github.com/ewhicher/get-in-line",
+  "author": "Ed Whicher",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "vue": "^2.6.11"
+  }
+}
