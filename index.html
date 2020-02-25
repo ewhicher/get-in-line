@@ -4,8 +4,20 @@
     <meta charset="utf-8">
     <title>Get in line</title>
   </head>
-  <body>
-    <div id="root" />
+  <body style="padding: 0; margin: 0;">
+    <div id="root">
+      <div style="height: 100px; border-bottom: 4px solid black;" v-get-in-line></div>
+      <div style="padding: 100px 8.333333% 0;">
+        <div style="height: 100px; border: 4px solid black;" v-get-in-line="{
+          columns: 10
+        }"></div>
+      </div>
+      <div style="padding: 100px 16.666666% 0;">
+        <div style="height: 100px; border: 4px solid black;" v-get-in-line="{
+          columns: 8
+        }"></div>
+      </div>
+    </div>
   </body>
-  <script src="get-in-line.js" />
+  <script src="js/get-in-line.js"></script>
 </html>

@@ -12571,6 +12571,41 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./src/js/directives/GetInLine.js":
+/*!****************************************!*\
+  !*** ./src/js/directives/GetInLine.js ***!
+  \****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive("get-in-line", {
+  bind: function bind(el, binding) {
+    el.style.background = "repeating-linear-gradient(to right, transparent, rgba(203, 112, 219, 0.4) 100%)";
+    var columns = binding.value ? binding.value.columns : 12;
+
+    var handleResize = function handleResize() {
+      var width = el.offsetWidth;
+      console.log(columns, el.offsetWidth);
+      el.style.backgroundSize = width / columns + "px";
+    };
+
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.nextTick(function () {
+      handleResize();
+    });
+    window.addEventListener("resize", handleResize);
+  },
+  unbind: function unbind() {
+    window.removeEventListener("resize", handleResize);
+  }
+});
+
+/***/ }),
+
 /***/ "./src/js/main.js":
 /*!************************!*\
   !*** ./src/js/main.js ***!
@@ -12582,6 +12617,8 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _directives_GetInLine__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./directives/GetInLine */ "./src/js/directives/GetInLine.js");
+
 
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: "#root"
