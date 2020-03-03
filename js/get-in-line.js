@@ -12585,22 +12585,90 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.directive("get-in-line", {
   bind: function bind(el, binding) {
-    el.style.background = "repeating-linear-gradient(to right, transparent, rgba(203, 112, 219, 0.4) 100%)";
-    var columns = binding.value ? binding.value.columns : 12;
+    // defaults
+    var visible = false;
+    var columns = 12;
+    var padding = "1rem";
+    var rows = "1rem"; // user
+
+    if (binding.value) {
+      if ("visible" in binding.value) {
+        visible = binding.value.visible;
+      }
+
+      if ("columns" in binding.value) {
+        columns = binding.value.columns;
+      }
+
+      if ("padding" in binding.value) {
+        padding = binding.value.padding;
+      }
+
+      if ("rows" in binding.value) {
+        rows = binding.value.rows;
+      }
+    } // grids
+
+
+    var columnGrid = document.createElement("span");
+    columnGrid.setAttribute("id", "getInLineColumnGrid");
+    columnGrid.style.position = "absolute";
+    columnGrid.style.top = "0";
+    columnGrid.style.bottom = "0";
+    columnGrid.style.left = "0";
+    columnGrid.style.right = "0";
+    columnGrid.style.zIndex = "999999";
+    columnGrid.style.opacity = ".25";
+    columnGrid.style.pointerEvents = "none";
+    columnGrid.style.backgroundImage = "repeating-linear-gradient(\n      to right,\n      fuchsia,\n      fuchsia ".concat(padding, ",\n      aqua calc(").concat(padding, " + 1px),\n      aqua calc(100% - ").concat(padding, "),\n      hotpink calc(100% - ").concat(padding, " + 1px),\n      hotpink 100%\n    )");
+    var rowGrid = document.createElement("span");
+    rowGrid.setAttribute("id", "getInLineRowGrid");
+    rowGrid.style.position = "absolute";
+    rowGrid.style.top = "0";
+    rowGrid.style.bottom = "0";
+    rowGrid.style.left = "0";
+    rowGrid.style.right = "0";
+    rowGrid.style.zIndex = "999999";
+    rowGrid.style.opacity = ".25";
+    rowGrid.style.pointerEvents = "none";
+    rowGrid.style.backgroundImage = "repeating-linear-gradient(\n      to bottom,\n      transparent,\n      transparent calc(".concat(rows, " - 1px),\n      red ").concat(rows, "\n    )"); // methods
 
     var handleResize = function handleResize() {
       var width = el.offsetWidth;
-      console.log(columns, el.offsetWidth);
-      el.style.backgroundSize = width / columns + "px";
+      columnGrid.style.backgroundSize = width / columns + "px";
     };
+
+    var handleToggle = function handleToggle(event) {
+      var e = event || window.event;
+
+      if (e.code === "KeyG") {
+        if (visible) {
+          el.removeChild(columnGrid);
+          el.removeChild(rowGrid);
+        } else {
+          el.appendChild(columnGrid);
+          el.appendChild(rowGrid);
+        }
+
+        visible = !visible;
+      }
+    }; // init
+
 
     vue__WEBPACK_IMPORTED_MODULE_0___default.a.nextTick(function () {
       handleResize();
+
+      if (visible) {
+        el.appendChild(columnGrid);
+        el.appendChild(rowGrid);
+      }
     });
     window.addEventListener("resize", handleResize);
+    document.addEventListener("keypress", handleToggle);
   },
   unbind: function unbind() {
     window.removeEventListener("resize", handleResize);
+    document.addEventListener("keypress", handleToggle);
   }
 });
 
@@ -12621,7 +12689,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: "#root"
+  el: "#root",
+  data: {
+    custom: {
+      columns: 6,
+      padding: "10px",
+      rows: "10px"
+    }
+  }
 });
 
 /***/ }),
